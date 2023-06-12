@@ -405,10 +405,10 @@ class _OtpScreenState extends State<OtpScreen>
             textAlign: TextAlign.center,
           )),
         ));
-    FlutterToast(context).showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 2),
-    );
+    // Fluttertoast.showToast(
+    //   child: toast,
+    //   gravity: ToastGravity.BOTTOM,
+    //   d: Duration(seconds: 2),
+    // );
   }
 }
