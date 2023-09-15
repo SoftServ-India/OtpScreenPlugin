@@ -1,5 +1,3 @@
-
-
 library otp_screen;
 
 import 'dart:async';
@@ -15,9 +13,10 @@ class OtpScreen extends StatefulWidget {
   final String subTitle;
   final Future<String> Function(String) validateOtp;
   final void Function(BuildContext) routeCallback;
-  Color  topColor = Colors.white;
-  Color  bottomColor = Colors.white;
-  late bool _isGradientApplied ;
+  Color topColor = Colors.white;
+  Color bottomColor = Colors.white;
+  late bool _isGradientApplied;
+
   final Color titleColor;
   final Color themeColor;
   final Color keyboardBackgroundColor;
@@ -35,25 +34,23 @@ class OtpScreen extends StatefulWidget {
     this.themeColor = Colors.black,
     this.titleColor = Colors.black,
     required this.icon,
-    required  this.keyboardBackgroundColor,
-
+    required this.keyboardBackgroundColor,
   }) : super() {
     this._isGradientApplied = false;
   }
 
   OtpScreen.withGradientBackground(
-      {
-        this.title = "Verification Code",
-        this.subTitle = "please enter the OTP sent to your\n device",
-        this.otpLength = 4,
-        required this.validateOtp,
-        required this.routeCallback,
-        this.themeColor = Colors.white,
-        this.titleColor = Colors.white,
-        this.topColor = Colors.white,
-        this.bottomColor  = Colors.white,
-        required this.keyboardBackgroundColor,
-        required  this.icon})
+      {this.title = "Verification Code",
+      this.subTitle = "please enter the OTP sent to your\n device",
+      this.otpLength = 4,
+      required this.validateOtp,
+      required this.routeCallback,
+      this.themeColor = Colors.white,
+      this.titleColor = Colors.white,
+      this.topColor = Colors.white,
+      this.bottomColor = Colors.white,
+      required this.keyboardBackgroundColor,
+      required this.icon})
       : super() {
     this._isGradientApplied = true;
   }
@@ -62,19 +59,17 @@ class OtpScreen extends StatefulWidget {
   _OtpScreenState createState() => new _OtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen>
-    with SingleTickerProviderStateMixin {
-  late Size  _screenSize;
-  int ? _currentDigit;
-  List<int?> otpValues = []
-  ;
+class _OtpScreenState extends State<OtpScreen> with SingleTickerProviderStateMixin {
+  late Size _screenSize;
+  int? _currentDigit;
+  List<int?> otpValues = [];
 
   bool showLoadingButton = false;
 
   @override
   void initState() {
     // otpValues = List<int>.filled(widget.otpLength, null, growable: false);
-     otpValues = List<int?>.generate(widget.otpLength, (_) => null, growable: false);
+    otpValues = List<int?>.generate(widget.otpLength, (_) => null, growable: false);
 
     super.initState();
   }
@@ -89,13 +84,13 @@ class _OtpScreenState extends State<OtpScreen>
         height: MediaQuery.of(context).size.height,
         decoration: widget._isGradientApplied
             ? BoxDecoration(
-            gradient: LinearGradient(
-              colors: [widget.topColor, widget.bottomColor],
-              begin: FractionalOffset.topLeft,
-              end: FractionalOffset.bottomRight,
-              stops: [0, 1],
-              tileMode: TileMode.clamp,
-            ))
+                gradient: LinearGradient(
+                colors: [widget.topColor, widget.bottomColor],
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+                stops: [0, 1],
+                tileMode: TileMode.clamp,
+              ))
             : BoxDecoration(color: Colors.white),
         width: _screenSize.width,
         child: _getInputPart,
@@ -108,10 +103,7 @@ class _OtpScreenState extends State<OtpScreen>
     return new Text(
       widget.title,
       textAlign: TextAlign.center,
-      style: new TextStyle(
-          fontSize: 28.0,
-          color: widget.titleColor,
-          fontWeight: FontWeight.bold),
+      style: new TextStyle(fontSize: 28.0, color: widget.titleColor, fontWeight: FontWeight.bold),
     );
   }
 
@@ -120,10 +112,7 @@ class _OtpScreenState extends State<OtpScreen>
     return new Text(
       widget.subTitle,
       textAlign: TextAlign.center,
-      style: new TextStyle(
-          fontSize: 18.0,
-          color: widget.titleColor,
-          fontWeight: FontWeight.w600),
+      style: new TextStyle(fontSize: 18.0, color: widget.titleColor, fontWeight: FontWeight.w600),
     );
   }
 
@@ -137,9 +126,9 @@ class _OtpScreenState extends State<OtpScreen>
 
   /// Returns otp fields of length [widget.otpLength]
   List<Widget> getOtpTextWidgetList() {
-    List<Widget> optList =[];
+    List<Widget> optList = [];
     for (int i = 0; i < widget.otpLength; i++) {
-      optList.add(_otpTextField(otpValues[i] ));
+      optList.add(_otpTextField(otpValues[i]));
     }
     return optList;
   }
@@ -175,9 +164,9 @@ class _OtpScreenState extends State<OtpScreen>
         showLoadingButton
             ? Center(child: CircularProgressIndicator())
             : Container(
-          width: 0,
-          height: 0,
-        ),
+                width: 0,
+                height: 0,
+              ),
         _getOtpKeyboard
       ],
     );
@@ -294,7 +283,7 @@ class _OtpScreenState extends State<OtpScreen>
   }
 
   /// Returns "Otp text field"
-  Widget _otpTextField(int ? digit) {
+  Widget _otpTextField(int? digit) {
     return new Container(
       width: 35.0,
       height: 45.0,
@@ -309,14 +298,14 @@ class _OtpScreenState extends State<OtpScreen>
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
-                width: 2.0,
-                color: widget.titleColor,
-              ))),
+        width: 2.0,
+        color: widget.titleColor,
+      ))),
     );
   }
 
   /// Returns "Otp keyboard input Button"
-  Widget _otpKeyboardInputButton({String ? label, VoidCallback ?onPressed}) {
+  Widget _otpKeyboardInputButton({String? label, VoidCallback? onPressed}) {
     return new Material(
       color: Colors.transparent,
       child: new InkWell(
@@ -343,7 +332,7 @@ class _OtpScreenState extends State<OtpScreen>
   }
 
   /// Returns "Otp keyboard action Button"
-  _otpKeyboardActionButton({Widget ? label, VoidCallback ? onPressed}) {
+  _otpKeyboardActionButton({Widget? label, VoidCallback? onPressed}) {
     return new InkWell(
       onTap: onPressed,
       borderRadius: new BorderRadius.circular(40.0),
@@ -364,33 +353,32 @@ class _OtpScreenState extends State<OtpScreen>
   ///  validation after last number is entered
   void _setCurrentDigit(int i) async {
     setState(() {
-try{      _currentDigit = i;
-int currentField;
-for (currentField = 0; currentField < widget.otpLength; currentField++) {
-  if (otpValues[currentField] == null) {
-    otpValues[currentField] = _currentDigit;
-    break;
-  }
-}
-if (currentField == widget.otpLength - 1) {
-  showLoadingButton = true;
-  String otp = otpValues.join();
-  widget.validateOtp(otp).then((value) {
-    showLoadingButton = false;
-    if (value == null) {
-      widget.routeCallback(context);
-    } else if (value.isNotEmpty) {
-      showToast(context, value);
-      clearOtp();
-    }
-  });
-}}catch(e,r){
-
-
-  print(e);
-  print(r);
-}
-
+      try {
+        _currentDigit = i;
+        int currentField;
+        for (currentField = 0; currentField < widget.otpLength; currentField++) {
+          if (otpValues[currentField] == null) {
+            otpValues[currentField] = _currentDigit;
+            break;
+          }
+        }
+        if (currentField == widget.otpLength - 1) {
+          showLoadingButton = true;
+          String otp = otpValues.join();
+          widget.validateOtp(otp).then((value) {
+            showLoadingButton = false;
+            if (value == null) {
+              widget.routeCallback(context);
+            } else if (value.isNotEmpty) {
+              showToast(context, value);
+              clearOtp();
+            }
+          });
+        }
+      } catch (e, r) {
+        print(e);
+        print(r);
+      }
     });
   }
 
@@ -412,10 +400,10 @@ if (currentField == widget.otpLength - 1) {
           ),
           child: Center(
               child: Text(
-                msg,
-                maxLines: 3,
-                textAlign: TextAlign.center,
-              )),
+            msg,
+            maxLines: 3,
+            textAlign: TextAlign.center,
+          )),
         ));
     // Fluttertoast.showToast(
     //   child: toast,
