@@ -135,7 +135,7 @@ class _OtpScreenState extends State<OtpScreen>
   List<Widget> getOtpTextWidgetList() {
     List<Widget> optList =[];
     for (int i = 0; i < 5; i++) {
-      optList.add(_otpTextField(0));
+      optList.add(_otpTextField(null));
     }
     return optList;
   }
@@ -290,7 +290,7 @@ class _OtpScreenState extends State<OtpScreen>
   }
 
   /// Returns "Otp text field"
-  Widget _otpTextField(int digit) {
+  Widget _otpTextField(int ? digit) {
     return new Container(
       width: 35.0,
       height: 45.0,
