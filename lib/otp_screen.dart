@@ -1,5 +1,4 @@
 
-// @dart=2.9
 
 library otp_screen;
 
@@ -16,9 +15,9 @@ class OtpScreen extends StatefulWidget {
   final String subTitle;
   final Future<String> Function(String) validateOtp;
   final void Function(BuildContext) routeCallback;
-  Color topColor;
-  Color bottomColor;
-  bool _isGradientApplied;
+Color  topColor = Colors.white;
+  Color  bottomColor = Colors.white;
+  late bool _isGradientApplied ;
   final Color titleColor;
   final Color themeColor;
   final Color keyboardBackgroundColor;
@@ -28,33 +27,34 @@ class OtpScreen extends StatefulWidget {
   final int otpLength;
 
   OtpScreen({
-    Key key,
+    required Key key,
     this.title = "Verification Code",
     this.subTitle = "please enter the OTP sent to your\n device",
     this.otpLength = 4,
-    @required this.validateOtp,
-    @required this.routeCallback,
+    required this.validateOtp,
+    required this.routeCallback,
     this.themeColor = Colors.black,
     this.titleColor = Colors.black,
-    this.icon,
-    this.keyboardBackgroundColor,
+    required this.icon,
+    required  this.keyboardBackgroundColor,
+
   }) : super(key: key) {
     this._isGradientApplied = false;
   }
 
   OtpScreen.withGradientBackground(
-      {Key key,
+      {required Key key,
       this.title = "Verification Code",
       this.subTitle = "please enter the OTP sent to your\n device",
       this.otpLength = 4,
-      @required this.validateOtp,
-      @required this.routeCallback,
+      required this.validateOtp,
+      required this.routeCallback,
       this.themeColor = Colors.white,
       this.titleColor = Colors.white,
-      @required this.topColor,
-      @required this.bottomColor,
-      this.keyboardBackgroundColor,
-      this.icon})
+        this.topColor = Colors.white,
+        this.bottomColor  = Colors.white,
+        required this.keyboardBackgroundColor,
+        required  this.icon})
       : super(key: key) {
     this._isGradientApplied = true;
   }
@@ -65,14 +65,14 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen>
     with SingleTickerProviderStateMixin {
-  Size _screenSize;
-  int _currentDigit;
-  List<int> otpValues;
+  late Size  _screenSize;
+  int ? _currentDigit;
+ late List<int?>  otpValues;
   bool showLoadingButton = false;
 
   @override
   void initState() {
-    otpValues = List<int>.filled(widget.otpLength, null, growable: false);
+    otpValues = List<int?>.generate(widget.otpLength, (_) => null, growable: false);
     super.initState();
   }
 
@@ -134,9 +134,9 @@ class _OtpScreenState extends State<OtpScreen>
 
   /// Returns otp fields of length [widget.otpLength]
   List<Widget> getOtpTextWidgetList() {
-    List<Widget> optList = List();
+    List<Widget> optList =[];
     for (int i = 0; i < widget.otpLength; i++) {
-      optList.add(_otpTextField(otpValues[i]));
+      optList.add(_otpTextField(otpValues[i]!));
     }
     return optList;
   }
@@ -313,7 +313,7 @@ class _OtpScreenState extends State<OtpScreen>
   }
 
   /// Returns "Otp keyboard input Button"
-  Widget _otpKeyboardInputButton({String label, VoidCallback onPressed}) {
+  Widget _otpKeyboardInputButton({String ? label, VoidCallback ?onPressed}) {
     return new Material(
       color: Colors.transparent,
       child: new InkWell(
@@ -327,7 +327,7 @@ class _OtpScreenState extends State<OtpScreen>
           ),
           child: new Center(
             child: new Text(
-              label,
+              label ?? '',
               style: new TextStyle(
                 fontSize: 30.0,
                 color: widget.themeColor,
@@ -340,7 +340,7 @@ class _OtpScreenState extends State<OtpScreen>
   }
 
   /// Returns "Otp keyboard action Button"
-  _otpKeyboardActionButton({Widget label, VoidCallback onPressed}) {
+  _otpKeyboardActionButton({Widget ? label, VoidCallback ? onPressed}) {
     return new InkWell(
       onTap: onPressed,
       borderRadius: new BorderRadius.circular(40.0),
@@ -387,7 +387,7 @@ class _OtpScreenState extends State<OtpScreen>
 
   ///to clear otp when error occurs
   void clearOtp() {
-    otpValues = List<int>.filled(widget.otpLength, null, growable: false);
+    otpValues = List<int?>.generate(widget.otpLength, (_) => null, growable: false);
     setState(() {});
   }
 
