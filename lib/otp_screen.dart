@@ -27,8 +27,7 @@ Color  topColor = Colors.white;
   final int otpLength;
 
   OtpScreen({
-    required Key key,
-    this.title = "Verification Code",
+     this.title = "Verification Code",
     this.subTitle = "please enter the OTP sent to your\n device",
     this.otpLength = 4,
     required this.validateOtp,
@@ -38,12 +37,12 @@ Color  topColor = Colors.white;
     required this.icon,
     required  this.keyboardBackgroundColor,
 
-  }) : super(key: key) {
+  }) : super() {
     this._isGradientApplied = false;
   }
 
   OtpScreen.withGradientBackground(
-      {required Key key,
+      {
       this.title = "Verification Code",
       this.subTitle = "please enter the OTP sent to your\n device",
       this.otpLength = 4,
@@ -55,7 +54,7 @@ Color  topColor = Colors.white;
         this.bottomColor  = Colors.white,
         required this.keyboardBackgroundColor,
         required  this.icon})
-      : super(key: key) {
+      : super() {
     this._isGradientApplied = true;
   }
 
