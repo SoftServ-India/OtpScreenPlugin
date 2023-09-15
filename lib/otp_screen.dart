@@ -363,7 +363,7 @@ class _OtpScreenState extends State<OtpScreen> with SingleTickerProviderStateMix
           }
         }
         if (currentField == widget.otpLength - 1) {
-          showLoadingButton = true;
+          showLoadingButton = false;
           String otp = otpValues.join();
           widget.validateOtp(otp).then((value) {
             showLoadingButton = false;
