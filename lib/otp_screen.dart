@@ -134,8 +134,8 @@ class _OtpScreenState extends State<OtpScreen>
   /// Returns otp fields of length [widget.otpLength]
   List<Widget> getOtpTextWidgetList() {
     List<Widget> optList =[];
-    for (int i = 0; i < widget.otpLength; i++) {
-      optList.add(_otpTextField(otpValues[i]!));
+    for (int i = 0; i < 5; i++) {
+      optList.add(_otpTextField(0));
     }
     return optList;
   }
