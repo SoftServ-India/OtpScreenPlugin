@@ -66,12 +66,16 @@ class _OtpScreenState extends State<OtpScreen>
     with SingleTickerProviderStateMixin {
   late Size  _screenSize;
   int ? _currentDigit;
-  List<int?> otpValues = [];
+  List<int?> otpValues = []
+  ;
+
   bool showLoadingButton = false;
 
   @override
   void initState() {
-    // otpValues = List<int>.filled(widget.otpLength, 0, growable: false);
+    // otpValues = List<int>.filled(widget.otpLength, null, growable: false);
+     otpValues = List<int?>.generate(widget.otpLength, (_) => null, growable: false);
+
     super.initState();
   }
 
@@ -134,8 +138,8 @@ class _OtpScreenState extends State<OtpScreen>
   /// Returns otp fields of length [widget.otpLength]
   List<Widget> getOtpTextWidgetList() {
     List<Widget> optList =[];
-    for (int i = 0; i < 5; i++) {
-      optList.add(_otpTextField(null));
+    for (int i = 0; i < widget.otpLength; i++) {
+      optList.add(_otpTextField(otpValues[i] ));
     }
     return optList;
   }
@@ -146,16 +150,16 @@ class _OtpScreenState extends State<OtpScreen>
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        widget.icon != null
-            ? IconButton(
-          icon: widget.icon,
-          iconSize: 80,
-          onPressed: () {},
-        )
-            : Container(
-          width: 0,
-          height: 0,
-        ),
+        // widget.icon != null
+        //     ? IconButton(
+        //   icon: widget.icon,
+        //   iconSize: 80,
+        //   onPressed: () {},
+        // )
+        //     : Container(
+        //   width: 0,
+        //   height: 0,
+        // ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: _getTitleText,
@@ -360,27 +364,33 @@ class _OtpScreenState extends State<OtpScreen>
   ///  validation after last number is entered
   void _setCurrentDigit(int i) async {
     setState(() {
-      _currentDigit = i;
-      int currentField;
-      for (currentField = 0; currentField < widget.otpLength; currentField++) {
-        if (otpValues[currentField] == null) {
-          otpValues[currentField] = _currentDigit;
-          break;
-        }
-      }
-      if (currentField == widget.otpLength - 1) {
-        showLoadingButton = true;
-        String otp = otpValues.join();
-        widget.validateOtp(otp).then((value) {
-          showLoadingButton = false;
-          if (value == null) {
-            widget.routeCallback(context);
-          } else if (value.isNotEmpty) {
-            showToast(context, value);
-            clearOtp();
-          }
-        });
-      }
+try{      _currentDigit = i;
+int currentField;
+for (currentField = 0; currentField < widget.otpLength; currentField++) {
+  if (otpValues[currentField] == null) {
+    otpValues[currentField] = _currentDigit;
+    break;
+  }
+}
+if (currentField == widget.otpLength - 1) {
+  showLoadingButton = true;
+  String otp = otpValues.join();
+  widget.validateOtp(otp).then((value) {
+    showLoadingButton = false;
+    if (value == null) {
+      widget.routeCallback(context);
+    } else if (value.isNotEmpty) {
+      showToast(context, value);
+      clearOtp();
+    }
+  });
+}}catch(e,r){
+
+
+  print(e);
+  print(r);
+}
+
     });
   }
 
