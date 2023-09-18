@@ -150,7 +150,7 @@ class _OtpScreenState extends State<OtpScreen> with SingleTickerProviderStateMix
         //   height: 0,
         // ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.fromLTRB(20,50,2,0),
           child: _getTitleText,
         ),
         Padding(
